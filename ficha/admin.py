@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import FichaDog
 
-# Register your models here.
+@admin.register(FichaDog)
+class DogAdmin(admin.ModelAdmin):
+    list_display = ['nome']
+    #list_filter = ('nome')
+    #search_fields = ('nome')

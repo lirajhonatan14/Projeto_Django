@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Formulário para registro de cães</title>
+  </head>
+  <body>
+    <h1>Formulário para registro de cães</h1>
+    <form action='{% url "ficha" %}' method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Salvar">
+    </form>
+  </body>
+</html>
