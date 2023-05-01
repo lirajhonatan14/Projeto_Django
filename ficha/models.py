@@ -12,10 +12,13 @@ class FichaDog(models.Model):
     endereco = models.TextField(max_length=100)
     veterinario_cao = models.CharField(max_length=100,blank=True, null=True)
     observacoes = models.TextField(blank=True, null=True)
-    data = models.DateTimeField(max_length=100)
+    data = models.DateTimeField(auto_now_add=True)
    
     
     class Meta:
             db_table = 'Ficha_Dog'
+            
+    def __str__(self):
+        return self.nome
 
 

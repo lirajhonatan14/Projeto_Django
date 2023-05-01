@@ -6,7 +6,13 @@
   </head>
   <body>
     <h1>Formulário para reserva de cães</h1>
-    <form action='{% url "reserva" %}' method="post">
+    <form action='{% url "reservaday" %}' method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Salvar">
+    </form>
+    <h1>Formulário para reserva de cães</h1>
+    <form action='{% url "reservaday" %}' method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Salvar">
