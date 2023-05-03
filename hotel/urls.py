@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('novareserva/', views.reserva, name='reserva'),
-    path('novareserva/', views.reservaday, name='reservaday'),
+    path('novareservaday/', views.reservaday, name='reservaday'),
+    
 ]

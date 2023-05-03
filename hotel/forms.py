@@ -1,5 +1,5 @@
 from django import forms
-from .models import Reserva, ReservaDay
+from .models import ReservaDay, Reserva
 
 class Reservaform(forms.ModelForm):
     class Meta:
