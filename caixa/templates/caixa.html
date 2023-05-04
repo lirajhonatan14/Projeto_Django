@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.novareserva.css' %}">
+    <title>Reserva Hotel</title>
+  </head>
+  <body>
+    <div class="form">
+      <h1>Hotel</h1>
+      <form action='{% url "caixa" %}' method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="alinha">
+          <input class="butao" type="submit" value="Salvar">
+          <a href="{% url 'ficha:ficha' %}">Novo Pet</a>
+          <a href="{% url 'reservaday' %}">Reserva Day Care</a>
+        </div>
+      </form>
+    </div>
+    
+  </body>
+</html>

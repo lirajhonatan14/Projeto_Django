@@ -6,6 +6,7 @@ urlpatterns = [
     path('auth/', include('users.urls')),
     path('', include('ficha.urls')),
     path('', include('hotel.urls')),
+    path('', include('caixa.urls')),
     
     
 ]

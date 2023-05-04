@@ -7,6 +7,7 @@ class Reservaform(forms.ModelForm):
         fields = ['pet','data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos','servicos_adicionais', 'autorizacao_para_cuidados_medicos']
         widgets = {
             'usuario': forms.HiddenInput(),
+            'num_reserva': forms.HiddenInput(),
         }
     def save(self, commit=True, usuario=None):
         reserva = super().save(commit=False)
