@@ -18,7 +18,7 @@ def reserva(request):
             reserva.usuario = request.user
             reserva.save()
             messages.success(request, 'Reserva criada com sucesso!')
-            return redirect('reserva')
+            return redirect('caixa', num_reserva=reserva.id)
     else:
         form = Reservaform()
     context = {

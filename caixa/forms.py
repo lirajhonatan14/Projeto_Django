@@ -4,10 +4,11 @@ from .models import Caixa
 class CaixaForm(forms.ModelForm):
     class Meta:
         model = Caixa
-        fields = ['num_reserva','pet',]
+        fields = ['relatorio_estadia','desconto','num_reserva','pet']
         widgets = {
             'usuario': forms.HiddenInput(),
             #'num_reserva': forms.HiddenInput(),
+            #'pet': forms.HiddenInput(),
         }
     def save(self, commit=True, usuario=None):
         reserva = super().save(commit=False)

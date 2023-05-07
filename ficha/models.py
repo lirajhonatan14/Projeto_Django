@@ -8,6 +8,7 @@ class FichaDog(models.Model):
     peso = models.DecimalField(max_digits=5, decimal_places=2)
     tipo_alimentacao = models.CharField(max_length=100)
     restricoes_alimentares = models.CharField(max_length=100, blank=True, null=True)
+    nome_tutor = models.CharField(max_length=100,blank=True)
     contato_tutor = models.CharField(max_length=100)
     cpf_tutor = models.PositiveIntegerField()
     endereco = models.TextField(max_length=100)

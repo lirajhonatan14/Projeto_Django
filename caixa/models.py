@@ -15,3 +15,12 @@ class Caixa(models.Model):
     class Meta:
             db_table = 'Caixa'
             
+class ServicosAdicionais(models.Model):
+    nome_servico = models.CharField(max_length=50)
+    valor_servico = models.DecimalField(max_digits=6, decimal_places=2)
+    utilizado = models.BooleanField(default=False) # novo campo booleano para indicar se o serviço foi utilizado ou não
+    num_reserva = models.ForeignKey(Reserva, on_delete=models.AutoField)
+    
+    class Meta:
+            db_table = 'Servicos_adicionais'
+ 

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Reserva(models.Model):
     pet = models.ForeignKey(FichaDog, on_delete=models.CASCADE)
-    num_reserva = models.IntegerField(auto_created=True)
+    num_reserva = models.IntegerField(primary_key=True, editable=False)
     data_entrada = models.DateField()
     data_saida = models.DateField()
     hora_entrada = models.TimeField()
@@ -40,7 +40,7 @@ class ReservaDay(models.Model):
     data_entrada = models.DateField()
     data_saida = models.DateField()
     hora_entrada = models.TimeField()
-    num_reserva = models.IntegerField(auto_created=True)
+    num_reserva = models.IntegerField(primary_key=True, editable=False)
     usuario  = models.ForeignKey(User, on_delete=models.CASCADE)
     HORARIO_CHOICES = (('2x_dia', 'Duas vezes por dia'),('3x_dia', 'Três vezes por dia'),('personalizado', 'Horário personalizado'),)
     horario_alimentacao = models.CharField(max_length=20, choices=HORARIO_CHOICES)

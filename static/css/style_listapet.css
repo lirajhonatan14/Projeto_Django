@@ -16,10 +16,16 @@ body{
     flex-direction: column ;
 }  
 
-th, td {
-border-bottom: 2px solid black;
-padding: 10px;
-flex-grow: 1;
+th{
+    border-bottom: 2px solid black;
+    padding: 10px;
+    flex-grow: 1;
+}
+td {
+    border-bottom: 2px solid black;
+    padding: 10px;
+    flex-grow: 1;
+    padding-left: 15%;
 
 }
 
@@ -38,32 +44,10 @@ tr {
     align-items: center;
     justify-content: center;
 }
+h1{
+   text-align: center;
+   font-size: 60px;
+   color: aqua;
+   -webkit-text-stroke: 1px black;
 
-.botao {
-display: flex;
-align-items: center;
-justify-content: center;
-height: 40px;
-width: 100px;
-background-color: rgb(139, 124, 111);
-}
-
-.butao:hover {
-background-color: rgb(200, 180, 160);
-}
-.nome{
-    width: 205px;
-    text-align: center;
-}
-.num{
-    width: 234px;
-    text-align: center;
-}
-.data{
-    width: 205px;
-    text-align: center;
-}
-.entrada{
-    width: 205px;
-    text-align: center;
 }
