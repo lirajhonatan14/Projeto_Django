@@ -3,7 +3,7 @@ from django.http import HttpResponseBadRequest
 from django.contrib import messages
 from caixa.forms import CaixaForm
 from caixa.models import Caixa
-from ficha.models import FichaDog
+from hotel.models import Reserva
 
 
 
@@ -16,34 +16,17 @@ def outra_view_do_outro_app(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Reserva
 
-def caixa(request):
+def caixa(request, num_reserva):
+    reserva_id = request.GET.get('num_reserva')
+    reserva = Reserva.objects.get(pk=num_reserva)
+    nome = reserva.pet.nome
+    usuario = request.user.username
+
     if request.method == 'POST':
-        num_reserva = request.POST.get('num_reserva')
-        reserva = get_object_or_404(Reserva, num_reserva=num_reserva)
-        nome = reserva.ficha
-        usuario = request.user
-        total = reserva.total
-        if reserva.desconto:
-            total = total - reserva.desconto
-
-        if reserva.status == 'Aguardando Pagamento':
-            reserva.status = 'Finalizado'
-            reserva.save()
-
-        relatorio = Relatorio.objects.create(
-            reserva=reserva,
-            usuario=usuario,
-            data_saida=date.today(),
-            observacoes=request.POST.get('observacoes')
-        )
-
-        context = {
-            'reserva': reserva,
-            'animal': animal,
-            'usuario': usuario,
-            'total': total,
-            'relatorio': relatorio,
-        }
-        return render(request, 'caixa.html', context)
+        # lógica de fechamento de reserva aqui
+        # ...
+        return render(request, 'caixa.html', {'reserva': reserva, 'animal': nome, 'usuario': usuario})
     else:
-        return HttpResponseBadRequest('Método inválido')
+        context = {'reserva': reserva, 'animal': nome, 'usuario': usuario}
+        return render(request, 'caixa.html', context)
+

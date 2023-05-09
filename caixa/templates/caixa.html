@@ -13,29 +13,45 @@
         <td class='num'><a href="#">{{ reserva.num_reserva }}</a></td>
         <td class='nome'>{{ reserva.pet.nome}}</td>
       </tr>
-      <form action='{% url "caixa:caixa" %}' method="post">
+      <form method="post">
         {% csrf_token %}
-        <input type="hidden">
-        <label for="num_reserva">Número da Reserva:</label>
-        <input type="text" id="num_reserva" name="num_reserva" value="{{ num_reserva }}" readonly>
-
-        <label for="nome_animal">Nome do Pet:</label>
-        <input type="text" id="nome_animal" name="nome_animal" value="{{ nome_animal }}" readonly>
-
-        <label for="relatorio">Relatorio:</label>
-        <input type="text" id="relatorio" name="relatorio" value="{{ relatorio }}">
-
-        <label for="desconto">Desconto:</label>
-        <input type="number" id="desconto" name="desconto" step="0.01" style="width: 195px;" value="{{ desconto }}">
-
-        <!-- O campo abaixo não é exibido para o usuário, apenas para registro -->
+        <label>Número da reserva:</label>
+        <input type="text" name="num_reserva" value="{{ reserva.num_reserva }}" readonly><br>
+    
+        <label>Nome do animal:</label>
+        <input type="text" name="nome_animal" value="{{ reserva.pet.nome }}" readonly><br>
+    
+        <label>Usuário:</label>
+        <input type="text" name="usuario" value="{{ usuario }}" readonly><br>
+        <tr>
+          <td>{{ reserva.pk }}</td>
+          <td>{{ reserva.pet.nome }}</td>
+          <td>{{ reserva.inicio|date:"d/m/Y" }}</td>
+          <td>{{ reserva.fim|date:"d/m/Y" }}</td>
+          <td>{{ reserva.total }}</td>
+          <td>
+            {% if reserva.pago %}
+              <span class="badge badge-success">Pago</span>
+            {% else %}
+              <span class="badge badge-danger">Pendente</span>
+              <a href="{% url 'caixa:caixa' num_reserva=reserva.pk %}" class="btn btn-primary">Fechar</a>
+            {% endif %}
+          </td>
+        </tr>
+        
+    
+        <!-- ... -->
+    </form>
+  
         <input type="hidden" id="usuario" name="usuario" value="{{ usuario }}">
         <div class="alinha">
           <input class="butao" type="submit" value="Salvar">
           <a href="{% url 'ficha:ficha' %}">Novo Pet</a>
           <a href="{% url 'reservaday' %}">Reserva Day Care</a>
         </div>
-      </form>
+        
+      
+    
     </div>
     
   </body>

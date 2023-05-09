@@ -20,7 +20,7 @@
         <tbody>
           {% for reserva in reservas %}
           <tr>
-            <td class='num'><a href="{% url 'caixa:parametro' parametro=reserva.num_reserva %}">{{ reserva.num_reserva }}</td>
+            <td class='num'><a href="{% url 'caixa:caixa' num_reserva=reserva.pk %}" class="btn btn-primary">{{ reserva.num_reserva }}</td>
             <td class='nome'>{{ reserva.pet.nome}}</td>
             <td class='data'>{{ reserva.data_entrada |date:"d/m/Y"}}</td>
             <td class='entrada'>{{ reserva.hora_entrada }}</td>
