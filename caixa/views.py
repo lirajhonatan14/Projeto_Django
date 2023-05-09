@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.contrib import messages
 from caixa.forms import CaixaForm
 from caixa.models import Caixa
@@ -16,16 +16,34 @@ def outra_view_do_outro_app(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Reserva
 
-def caixa(request, reserva_id):
-    reserva = get_object_or_404(Reserva, pk=reserva_id)
-    nome_animal = Reserva.pet # recupera o nome do animal
-    num_reserva = Reserva.num_reserva # recupera o número da reserva
-    usuario = request.user # recupera o usuário logado
-    relatorio = Caixa.relatorio_estadia
-    desconto = Caixa.desconto
-    
-    
+def caixa(request):
+    if request.method == 'POST':
+        num_reserva = request.POST.get('num_reserva')
+        reserva = get_object_or_404(Reserva, num_reserva=num_reserva)
+        nome = reserva.ficha
+        usuario = request.user
+        total = reserva.total
+        if reserva.desconto:
+            total = total - reserva.desconto
 
-    # Lógica para fechamento da reserva e pagamento
+        if reserva.status == 'Aguardando Pagamento':
+            reserva.status = 'Finalizado'
+            reserva.save()
 
-    return render(request, 'caixa.html', {'nome_animal': nome_animal, 'num_reserva': num_reserva, 'usuario': usuario, 'relatorio': relatorio, 'desconto': desconto})
+        relatorio = Relatorio.objects.create(
+            reserva=reserva,
+            usuario=usuario,
+            data_saida=date.today(),
+            observacoes=request.POST.get('observacoes')
+        )
+
+        context = {
+            'reserva': reserva,
+            'animal': animal,
+            'usuario': usuario,
+            'total': total,
+            'relatorio': relatorio,
+        }
+        return render(request, 'caixa.html', context)
+    else:
+        return HttpResponseBadRequest('Método inválido')

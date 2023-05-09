@@ -15,6 +15,7 @@
       </tr>
       <form action='{% url "caixa:caixa" %}' method="post">
         {% csrf_token %}
+        <input type="hidden">
         <label for="num_reserva">Número da Reserva:</label>
         <input type="text" id="num_reserva" name="num_reserva" value="{{ num_reserva }}" readonly>
 
