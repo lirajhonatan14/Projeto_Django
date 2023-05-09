@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style_caixa.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_caixa2.css' %}">
     <title>Caixa</title>
   </head>
   <body>
@@ -11,41 +11,35 @@
       <h1>Caixa</h1>
       <tr>
         <td class='num'><a href="#">{{ reserva.num_reserva }}</a></td>
-        <td class='nome'>{{ reserva.pet.nome}}</td>
+        <td class='nome'>{{ reserva.pet.nome}}</td><br>
+        <td class='nome'>{{ usuario}}</td>
       </tr>
-      <form method="post">
+      <form action="caixa" method="post">
         {% csrf_token %}
-        <label>Número da reserva:</label>
-        <input type="text" name="num_reserva" value="{{ reserva.num_reserva }}" readonly><br>
+        <label>Relatório:</label>
+        <textarea class='relatorio' type="text" name="relatorio_estadia"></textarea>
     
-        <label>Nome do animal:</label>
-        <input type="text" name="nome_animal" value="{{ reserva.pet.nome }}" readonly><br>
+        <label>Desconto:</label>
+        <input type="number" name="desconto"><br>
     
-        <label>Usuário:</label>
-        <input type="text" name="usuario" value="{{ usuario }}" readonly><br>
-        <tr>
-          <td>{{ reserva.pk }}</td>
-          <td>{{ reserva.pet.nome }}</td>
-          <td>{{ reserva.inicio|date:"d/m/Y" }}</td>
-          <td>{{ reserva.fim|date:"d/m/Y" }}</td>
-          <td>{{ reserva.total }}</td>
-          <td>
-            {% if reserva.pago %}
-              <span class="badge badge-success">Pago</span>
-            {% else %}
-              <span class="badge badge-danger">Pendente</span>
-              <a href="{% url 'caixa:caixa' num_reserva=reserva.pk %}" class="btn btn-primary">Fechar</a>
-            {% endif %}
-          </td>
-        </tr>
         
-    
+        <input class="butao" type="submit" value="Pago">
         <!-- ... -->
     </form>
+
+
+        <h1>Serviços adicionais</h1>
+        <h2>Reserva #{{ reserva.pk }}</h2>
+      <tr>
+        <td class='num'>{{ reserva1.nome_servico }}</td>
+        <td class='nome'>{{ reserva1.valor_servico}}</td><br>
+        <td class='nome'>{{ reserva1.valor}}</td>
+      </tr>
+      
+
   
-        <input type="hidden" id="usuario" name="usuario" value="{{ usuario }}">
         <div class="alinha">
-          <input class="butao" type="submit" value="Salvar">
+          
           <a href="{% url 'ficha:ficha' %}">Novo Pet</a>
           <a href="{% url 'reservaday' %}">Reserva Day Care</a>
         </div>

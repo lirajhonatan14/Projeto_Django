@@ -25,6 +25,7 @@ def reserva(request):
         'form': form,
     }
     return render(request, 'reserva.html', {'form': form})
+    
 @login_required
 def reservaday(request):
     if request.method == 'POST':

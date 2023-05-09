@@ -5,7 +5,8 @@ from . import views
 app_name = 'caixa'
 urlpatterns = [
     path('caixa/<int:num_reserva>/', views.caixa, name='caixa'),
-    path('outra_view/', views.outra_view_do_outro_app, name='parametro'),
+    path('servicos/<int:num_reserva>/', views.servicos_adicionais, name='caixa'),
+    
     
     
 ]
