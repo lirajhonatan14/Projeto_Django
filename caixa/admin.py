@@ -1,6 +1,6 @@
 from django.contrib import admin
-from caixa.models import Caixa, ServicosAdicionais
+from caixa.models import Caixa
 
 admin.site.register(Caixa)
-admin.site.register(ServicosAdicionais)
+
 

@@ -1,13 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseBadRequest
 from django.contrib import messages
-from caixa.forms import ServicosAdicionaisForm
-from caixa.models import ServicosAdicionais
 from hotel.models import Reserva
 import datetime
-
-
-
 from django.shortcuts import render, get_object_or_404
 from .models import Reserva
 
