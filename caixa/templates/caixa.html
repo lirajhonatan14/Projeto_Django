@@ -24,6 +24,13 @@
     
         
         <input class="butao" type="submit" value="Pago">
+        {% if reserva.pago %}
+          <span class="badge badge-success">Pago</span>
+        {% else %}
+          <span class="badge badge-danger">Pendente</span>
+          <a href="{% url 'caixa:caixa' num_reserva=reserva.pk %}" class="btn btn-primary">Fechar</a>
+        {% endif %}
+
         <!-- ... -->
     </form>
 

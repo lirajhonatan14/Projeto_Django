@@ -11,9 +11,7 @@ def caixa(request, num_reserva):
     reserva = Reserva.objects.get(pk=num_reserva)
     nome = reserva.pet.nome
     usuario = request.user.username
-    reserva1 = ServicosAdicionais.objects.get(pk=reserva_id)
-    nome_servico = reserva1.nome_servico
-    valor_servico = reserva1.valor_servico
+
 
     if request.method == 'POST':
         # lógica de fechamento de reserva aqui
@@ -22,17 +20,10 @@ def caixa(request, num_reserva):
         context = {
         'reserva': reserva,
         }
-        return render(request, 'caixa.html', {'reserva': reserva, 'animal': nome, 'usuario': usuario,'reserva1': reserva1, 'nome': nome_servico, 'valor': valor_servico})
+        return render(request, 'caixa.html', {'reserva': reserva, 'animal': nome, 'usuario': usuario})
     else:
-        context = {'reserva': reserva, 'nome': nome, 'usuario': usuario,'reserva1': reserva1, 'nome': nome_servico, 'valor': valor_servico}
+        context = {'reserva': reserva, 'nome': nome, 'usuario': usuario}
         return render(request, 'caixa.html', context)
     
-def servicos_adicionais(request, num_reserva):
-    reserva_id = request.GET.get('num_reserva')
-    reserva1 = ServicosAdicionais.objects.get(pk=num_reserva)
-    nome_servico = reserva1.nome_servico
-    valor_servico = reserva1.valor_servico
-    if request.method == 'POST':
-        context = {'reserva1': reserva1, 'nome': nome_servico, 'valor': valor_servico}
-        return render(request, 'caixa.html', context)
+
 
