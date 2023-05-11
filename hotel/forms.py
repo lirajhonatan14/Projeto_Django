@@ -31,21 +31,17 @@ class ReservaDayForm(forms.ModelForm):
         if commit:
             reserva1.save()
         return reserva1
-    
+
 class ServicosAdicionaisForm(forms.ModelForm):
     class Meta:
         model = ServicosAdicionais
-        fields = [ 'nome_servico','valor_servico','utilizado']
-        widgets = {
-            #'usuario': forms.HiddenInput(),
-            #'num_reserva': forms.HiddenInput(),
-            #'pet': forms.HiddenInput(),
-        }
-    def save(self, commit=True, usuario=None):
-        reserva = super().save(commit=False)
-        if usuario:
-            reserva.usuario = usuario
-        if commit:
-            reserva.save()
-        return reserva    
+        fields = ['nome_servico', 'valor_servico']
+
+class ReservaForm(forms.ModelForm):
+    servicos_adicionais = forms.ModelMultipleChoiceField(queryset=ServicosAdicionais.objects.all(), widget=forms.CheckboxSelectMultiple, required=False)
+    class Meta:
+        model = Reserva
+        fields = ['pet', 'data_entrada', 'data_saida', 'servicos_adicionais']
+
+
     

@@ -9,13 +9,15 @@
   <body>
     <div class="form">
       <h1>Hotel</h1>
-      <form action='{% url "reserva" %}' method="post">
+      {% extends 'home.html' %}
+
+      {% block content %}
+      <h1>Nova Reserva</h1>
+      <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <div class="alinha">
+    <h2>Serviços Adicionais</h
           <input class="butao" type="submit" value="Salvar">
-          <a href="{% url 'ficha:ficha' %}">Novo Pet</a>
-          <a href="{% url 'reservaday' %}">Reserva Day Care</a>
         </div>
       </form>
     </div>

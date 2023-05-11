@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_home.css' %}">
+    <title>Página Inicial</title>
+  </head>
+  <body>
+    
+    <div class="form">
+      <img class="logo" src="{% static 'img/logo.jpeg' %}">
+
+      <h1>Página Inicial</h1>
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'cadastro' %}">Cadastro</a>
+      <a href="{% url 'ficha:ficha' %}">Cadastrar Animal</a>
+      <a href="{% url 'ficha:lista' %}">Cães cadastrados</a>
+      <a href="{% url 'reserva' %}">Nova Reserva Hotel</a>
+      <a href="{% url 'reservaday' %}">Nova Reserva Day Care</a>
+      <a href="{% url 'lista_reserva' %}">Reservas em Andamento</a>
+      <a href="{% url 'proc_reserva' %}">Historico de Reservas</a>
+      <a href="#">Historico de Reservas</a>
+      <a href="#">Historico de Reservas</a>
+      <a href="#">Historico de Reservas</a>
+      <a href="#">Historico de Reservas</a>
+      <a href="#">Historico de Reservas</a>
+      <a href="{% url 'logout' %}">Sair</a>
+
+    </div>
+    
+
+  </body>
+</html>

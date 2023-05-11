@@ -1,5 +1,6 @@
 from django import forms
 from .models import Caixa
+from hotel.models import ServicosAdicionais
 
 class CaixaForm(forms.ModelForm):
     class Meta:
@@ -17,5 +18,7 @@ class CaixaForm(forms.ModelForm):
         if commit:
             reserva.save()
         return reserva
+    
+
     
 
