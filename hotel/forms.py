@@ -20,7 +20,7 @@ class Reservaform(forms.ModelForm):
 class ReservaDayForm(forms.ModelForm):
     class Meta:
         model = ReservaDay
-        fields = ['pet','data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos']
+        fields = ['data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos']
         widgets = {
             'usuario': forms.HiddenInput(),
         }
@@ -36,12 +36,6 @@ class ServicosAdicionaisForm(forms.ModelForm):
     class Meta:
         model = ServicosAdicionais
         fields = ['nome_servico', 'valor_servico']
-
-class ReservaForm(forms.ModelForm):
-    servicos_adicionais = forms.ModelMultipleChoiceField(queryset=ServicosAdicionais.objects.all(), widget=forms.CheckboxSelectMultiple, required=False)
-    class Meta:
-        model = Reserva
-        fields = ['pet', 'data_entrada', 'data_saida', 'servicos_adicionais']
 
 
     

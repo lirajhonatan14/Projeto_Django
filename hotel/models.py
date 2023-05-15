@@ -18,7 +18,7 @@ class Reserva(models.Model):
     instrucoes_medicamentos = models.CharField(max_length=100, blank=True, null=True)
     ACEITAR_CHOICES = (('Sim', 'Duas vezes por dia'),('3x_dia', 'Três vezes por dia'),('personalizado', 'Horário personalizado'),)
     autorizacao_para_cuidados_medicos = models.BooleanField(default=False, choices=[(False, 'Não'), (True, 'Sim')])
-
+    servicos_adicionais = models.ForeignKey('hotel.ServicosAdicionais', blank=True, on_delete=models.CASCADE)
     
     def clean(self):
         super().clean()
@@ -36,7 +36,7 @@ class Reserva(models.Model):
 
             
 class ReservaDay(models.Model):
-    pet = models.ForeignKey(FichaDog, on_delete=models.CASCADE)
+    #pet = models.ForeignKey(FichaDog, on_delete=models.CASCADE)
     data_entrada = models.DateField()
     data_saida = models.DateField()
     hora_entrada = models.TimeField()
@@ -47,6 +47,7 @@ class ReservaDay(models.Model):
     horario_personalizado = models.CharField(max_length=20, blank=True, null=True)
     instrucoes_medicamentos = models.CharField(max_length=100, blank=True, null=True)
     ACEITAR_CHOICES = (('Sim', 'Duas vezes por dia'),('3x_dia', 'Três vezes por dia'),('personalizado', 'Horário personalizado'),)
+    servicos_adicionais = models.ManyToManyField('hotel.ServicosAdicionais', blank=True)
     autorizacao_para_cuidados_medicos = models.BooleanField(default=False, choices=[(False, 'Não'), (True, 'Sim')])
 
     
@@ -67,10 +68,11 @@ class ReservaDay(models.Model):
 class ServicosAdicionais(models.Model):
     nome_servico = models.CharField(max_length=50)
     valor_servico = models.DecimalField(max_digits=6, decimal_places=2)
-    utilizado = models.BooleanField(default=False) # novo campo booleano para indicar se o serviço foi utilizado ou não
     num_reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE,null=True, blank=True)
     class Meta:
             db_table = 'Servicos_adicionais'
+    
+
  
             
         

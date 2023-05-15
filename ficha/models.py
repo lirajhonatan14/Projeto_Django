@@ -1,7 +1,7 @@
 from django.db import models
 
 class FichaDog(models.Model):
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=100, primary_key=True)
     raca = models.CharField(max_length=100)
     idade = models.PositiveIntegerField()
     sexo = models.CharField(max_length=1, choices=(('M', 'Macho'), ('F', 'Fêmea')))

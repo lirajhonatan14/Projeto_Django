@@ -4,36 +4,40 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import ReservaDayForm, Reservaform, ServicosAdicionaisForm
 from datetime import datetime, date
-from .models import Reserva
+from .models import Reserva, ServicosAdicionais
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .forms import ReservaForm, ServicosAdicionaisForm
 from .models import Reserva
+from django.views.generic import View
 
 @login_required(login_url="/auth/login/")
+def nova_reserva(request):
+    if request.method == 'POST':
+        form_reserva = Reservaform(request.POST)
+        form_servicos = ServicosAdicionaisForm(request.POST)
+        reserva = form_reserva.save(commit=False)
+        reserva.usuario = request.user
+        reserva.save()  # Salva a reserva antes de adicionar os serviços
+        if form_reserva.is_valid() and form_servicos.is_valid():
+            
+            servicos = form_servicos.save(commit=False)
+            servicos.num_reserva = reserva.num_reserva
+            #servicos_adicionais = ServicosAdicionais(num_reserva_id=reserva.pk)
+            #servicos_adicionais.save()
+            servicos.save()  # Salva os serviços depois da reserva
+            #reserva.servicos_adicionais.add(servicos)
+            return redirect('home')
+    else:
+        form_reserva = Reservaform()
+        form_servicos = ServicosAdicionaisForm()
+    return render(request, 'reserva.html', {'form_reserva': form_reserva, 'form_servicos': form_servicos})
 
-class NovaReservaView(View):
-    form_class = ReservaForm
-    
-    def get(self, request):
-        form = self.form_class()
-        servicos_form = ServicosAdicionaisForm()
-        return render(request, 'reserva.html', {'form': form, 'servicos_form': servicos_form})
-    
-    def post(self, request):
-        form = self.form_class(request.POST)
-        servicos_form = ServicosAdicionaisForm(request.POST)
-        if form.is_valid() and servicos_form.is_valid():
-            reserva = form.save(commit=False)
-            reserva.save()
-            servicos = servicos_form.save(commit=False)
-            servicos.num_reserva = reserva
-            servicos.save()
-            return redirect('reservas')
-        return render(request, 'reserva.html', {'form': form, 'servicos_form': servicos_form})
+
+
+
 
 
 

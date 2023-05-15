@@ -9,7 +9,7 @@ class CaixaForm(forms.ModelForm):
         widgets = {
             #'usuario': forms.HiddenInput(),
             #'num_reserva': forms.HiddenInput(),
-            #'pet': forms.HiddenInput(),
+            'pet': forms.HiddenInput(),
         }
     def save(self, commit=True, usuario=None):
         reserva = super().save(commit=False)

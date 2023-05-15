@@ -14,39 +14,29 @@
         <td class='nome'>{{ reserva.pet.nome}}</td><br>
         <td class='nome'>{{ usuario}}</td>
       </tr>
-      <form action="caixa" method="post">
+      <form action="{% url 'caixa:caixa' num_reserva=reserva.num_reserva %}" method="post">
         {% csrf_token %}
-        <label>Relatório:</label>
+        <label>Relatório:</label> 
         <textarea class='relatorio' type="text" name="relatorio_estadia"></textarea>
-    
+        {{ form.as_p }}
         <label>Desconto:</label>
         <input type="number" name="desconto"><br>
     
-        
-        <input class="butao" type="submit" value="Pago">
-        {% if reserva.pago %}
-          <span class="badge badge-success">Pago</span>
-        {% else %}
-          <span class="badge badge-danger">Pendente</span>
-          <a href="{% url 'caixa:caixa' num_reserva=reserva.pk %}" class="btn btn-primary">Fechar</a>
-        {% endif %}
-
+        <a href="{% url 'caixa:relatorio' num_reserva=reserva.num_reserva %}" class="btn btn-primary">
+          <input class="butao" type="submit" value="Concluir Reserva">
+        </a>
         <!-- ... -->
     </form>
 
-
         <h1>Serviços adicionais</h1>
-        <h2>Reserva #{{ reserva.pk }}</h2>
-      <tr>
-        <td class='num'>{{ reserva1.nome_servico }}</td>
-        <td class='nome'>{{ reserva1.valor_servico}}</td><br>
-        <td class='nome'>{{ reserva1.valor}}</td>
+        {% for servico in servicos %}
+        <label>
+            {{ servico.nome_servico }} - R$ {{ servico.valor_servico }}
+        </label>
+        {% endfor %}
+    
       </tr>
-      
-
-  
-        <div class="alinha">
-          
+        <div class="alinha">  
           <a href="{% url 'ficha:ficha' %}">Novo Pet</a>
           <a href="{% url 'reservaday' %}">Reserva Day Care</a>
         </div>

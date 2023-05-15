@@ -8,18 +8,20 @@
   </head>
   <body>
     <div class="form">
-      <h1>Hotel</h1>
-      {% extends 'home.html' %}
+        {% block content %}
+          <h1>Nova Reserva Hotel</h1>
+          <form method="post">
+            {% csrf_token %}
+            {{ form_reserva.as_p }}
+            <h2>Serviços Adicionais</h2>
+            {{ form_servicos.as_p }}
+            
+            <br>
+            <input type="submit" value="Salvar">
+          </form>
+        {% endblock %}
 
-      {% block content %}
-      <h1>Nova Reserva</h1>
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <h2>Serviços Adicionais</h
-          <input class="butao" type="submit" value="Salvar">
-        </div>
-      </form>
+      
     </div>
     
   </body>
