@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_lista_reserva.css' %}">
+    <title>Reserva Day Care</title>
+  </head>
+  <body>
+    <table class="form">
+        <thead class="legenda">
+          <tr class="tr">
+            <th>Número da Reserva</th>
+            <th>Nome do Animal</th>
+            <th>Data de Entrada</th>
+            <th>Hora de Entrada</th>
+          </tr>
+        </thead>
+        <br>
+        <tbody>
+          {% for reserva in reservas %}
+          <tr>
+            <td class='num'><a href="{% url 'caixa:caixa' num_reserva=reserva.pk %}" class="btn btn-primary">{{ reserva.num_reserva }}</td>
+            <td class='nome'>{{ reserva.pet.nome}}</td>
+            <td class='data'>{{ reserva.data_entrada |date:"d/m/Y"}}</td>
+            <td class='entrada'>{{ reserva.hora_entrada }}</td>
+            <td class='entrada'>{{ reserva.data_saida }}</td>
+            <td class='entrada'>{{ reserva.usuario }}</td>
+            <td class='entrada'>{{ reserva.horario_alimentacao }}</td>
+            <td class='entrada'>{{ reserva.horario_personalizado }}</td>
+            <td class='entrada'>{{ reserva.instrucoes_medicamentos }}</td>
+            <td class='entrada'>{{ reserva.autorizacao_para_cuidados_medicos }}</td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </body>
+</html>

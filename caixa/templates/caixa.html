@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_caixa2.css' %}">
+    <title>Caixa</title>
+  </head>
+  <body>
+    <div class="form">
+      <h1>Caixa</h1>
+      <tr>
+        <td class='num'><a href="#">{{ reserva.num_reserva }}</a></td>
+        <td class='nome'>{{ reserva.pet.nome}}</td><br>
+        <td class='nome'>{{ usuario}}</td>
+      </tr>
+      <form action="{% url 'caixa:caixa' num_reserva=reserva.num_reserva %}" method="post">
+        {% csrf_token %}
+        <label>Relatório:</label> 
+        <textarea class='relatorio' type="text" name="relatorio_estadia"></textarea>
+        {{ form.as_p }}
+        <label>Desconto:</label>
+        <input type="number" name="desconto"><br>
+    
+        <a href="{% url 'caixa:relatorio' num_reserva=reserva.num_reserva %}" class="btn btn-primary">
+          <input class="butao" type="submit" value="Concluir Reserva">
+        </a>
+        <!-- ... -->
+    </form>
+
+        <h1>Serviços adicionais</h1>
+        {% for servico in servicos %}
+        <label>
+            {{ servico.nome_servico }} - R$ {{ servico.valor_servico }}
+        </label>
+        {% endfor %}
+    
+      </tr>
+        <div class="alinha">  
+          <a href="{% url 'ficha:ficha' %}">Novo Pet</a>
+          <a href="{% url 'reservaday' %}">Reserva Day Care</a>
+        </div>
+        
+      
+    
+    </div>
+    
+  </body>
+</html>
