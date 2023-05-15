@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import ReservaDayForm, Reservaform, ServicosAdicionaisForm
+from .forms import ReservaDayForm, Reservaform
 from datetime import datetime, date
 from .models import Reserva, ServicosAdicionais
 from django.shortcuts import render, redirect
@@ -12,29 +12,22 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import Reserva
 from django.views.generic import View
+from django.core.exceptions import ValidationError
 
 @login_required(login_url="/auth/login/")
+# views.py
 def nova_reserva(request):
     if request.method == 'POST':
         form_reserva = Reservaform(request.POST)
-        form_servicos = ServicosAdicionaisForm(request.POST)
-        reserva = form_reserva.save(commit=False)
-        reserva.usuario = request.user
-        reserva.save()  # Salva a reserva antes de adicionar os serviços
-        if form_reserva.is_valid() and form_servicos.is_valid():
-            
-            servicos = form_servicos.save(commit=False)
-            servicos.num_reserva = reserva.num_reserva
-            #servicos_adicionais = ServicosAdicionais(num_reserva_id=reserva.pk)
-            #servicos_adicionais.save()
-            servicos.save()  # Salva os serviços depois da reserva
-            #reserva.servicos_adicionais.add(servicos)
+        if form_reserva.is_valid():
+            reserva = form_reserva.save(commit=False)
+            reserva.user = request.user
+            reserva.save()
+            form_reserva.save_m2m()
             return redirect('home')
     else:
         form_reserva = Reservaform()
-        form_servicos = ServicosAdicionaisForm()
-    return render(request, 'reserva.html', {'form_reserva': form_reserva, 'form_servicos': form_servicos})
-
+    return render(request, 'reserva.html', {'form_reserva': form_reserva})
 
 
 

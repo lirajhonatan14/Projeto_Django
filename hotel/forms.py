@@ -2,19 +2,27 @@ from django import forms
 from .models import ReservaDay, Reserva, ServicosAdicionais
 
 class Reservaform(forms.ModelForm):
+    servicos_adicionais = forms.ModelMultipleChoiceField(
+        queryset=ServicosAdicionais.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
     class Meta:
         model = Reserva
-        fields = ['pet','data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos']
+        fields = ['pet','data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos', 'servicos_adicionais']
         widgets = {
             'usuario': forms.HiddenInput(),
             'num_reserva': forms.HiddenInput(),
+            'servicos_adicionais': forms.CheckboxSelectMultiple()
         }
-    def save(self, commit=True, usuario=None):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['servicos_adicionais'].queryset = ServicosAdicionais.objects.all()
+        
+    def save(self, commit=True):
         reserva = super().save(commit=False)
-        if usuario:
-            reserva.usuario = usuario
         if commit:
             reserva.save()
+        self.save_m2m()
         return reserva
     
 class ReservaDayForm(forms.ModelForm):
@@ -32,10 +40,7 @@ class ReservaDayForm(forms.ModelForm):
             reserva1.save()
         return reserva1
 
-class ServicosAdicionaisForm(forms.ModelForm):
-    class Meta:
-        model = ServicosAdicionais
-        fields = ['nome_servico', 'valor_servico']
+
 
 
     

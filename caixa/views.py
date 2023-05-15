@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseServerError
 from django.contrib import messages
 from hotel.models import Reserva, ServicosAdicionais
-from hotel.forms import ServicosAdicionaisForm
 from django.shortcuts import render, get_object_or_404
 from .models import Caixa
 from .forms import CaixaForm
@@ -77,7 +76,10 @@ def relatorio_reservas(request, num_reserva):
         # Get the Reserva and Pet objects associated with the Caixa object
         reserva = caixa.num_reserva
         pet = caixa.pet
-    total = calcular_total(reserva)
+    total_reserva = calcular_total(reserva.num_reserva)
+    desc = caixa.desconto
+    soma = (desc/100) * total_reserva
+    total = total_reserva - soma
 
         # Create a dictionary to hold the data for the PDF
     context = {
@@ -119,7 +121,7 @@ def relatorio_reservas(request, num_reserva):
 from datetime import timedelta
 
 def calcular_total(num_reserva, ):
-    caixa = Caixa.objects.filter(num_reserva=num_reserva)
+    caixa = Caixa.objects.filter(num_reserva=num_reserva).first()
     data_entrada = caixa.num_reserva.data_entrada
     data_saida = caixa.num_reserva.data_saida
     
