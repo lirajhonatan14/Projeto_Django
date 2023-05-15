@@ -12,8 +12,10 @@ class Reservaform(forms.ModelForm):
         widgets = {
             'usuario': forms.HiddenInput(),
             'num_reserva': forms.HiddenInput(),
-            'servicos_adicionais': forms.CheckboxSelectMultiple()
+            #'servicos_adicionais': forms.CheckboxSelectMultiple()
+            
         }
+        quantidade_servicos_adicionais = forms.IntegerField(label='Quantidade de serviços adicionais', required=False)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['servicos_adicionais'].queryset = ServicosAdicionais.objects.all()

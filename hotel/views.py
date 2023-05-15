@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import ReservaDayForm, Reservaform
 from datetime import datetime, date
-from .models import Reserva, ServicosAdicionais
+from .models import Reserva, ReservaServicoAdicional
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,6 +24,9 @@ def nova_reserva(request):
             reserva.user = request.user
             reserva.save()
             form_reserva.save_m2m()
+            servicos_adicionais = form_reserva.cleaned_data['servicos_adicionais']
+            for servico_adicional in servicos_adicionais:
+                ReservaServicoAdicional.objects.create(reserva=reserva, servico_adicional=servico_adicional)
             return redirect('home')
     else:
         form_reserva = Reservaform()

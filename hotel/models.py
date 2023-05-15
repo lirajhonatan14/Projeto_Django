@@ -47,7 +47,7 @@ class ReservaDay(models.Model):
     horario_personalizado = models.CharField(max_length=20, blank=True, null=True)
     instrucoes_medicamentos = models.CharField(max_length=100, blank=True, null=True)
     ACEITAR_CHOICES = (('Sim', 'Duas vezes por dia'),('3x_dia', 'Três vezes por dia'),('personalizado', 'Horário personalizado'),)
-    servicos_adicionais = models.ManyToManyField('hotel.ServicosAdicionais', blank=True, null=True)
+    servicos_adicionais = models.ManyToManyField('hotel.ReservaServicoAdicional', blank=True, null=True)
     autorizacao_para_cuidados_medicos = models.BooleanField(default=False, choices=[(False, 'Não'), (True, 'Sim')])
 
     
@@ -70,7 +70,13 @@ class ServicosAdicionais(models.Model):
     valor_servico = models.DecimalField(max_digits=6, decimal_places=2)
     class Meta:
             db_table = 'Servicos_adicionais'
-    
+            
+class ReservaServicoAdicional(models.Model):
+    reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
+    servico_adicional = models.ForeignKey(ServicosAdicionais, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+    class Meta:
+            db_table = 'Reserva_Servicos_adicionais'
 
  
             
