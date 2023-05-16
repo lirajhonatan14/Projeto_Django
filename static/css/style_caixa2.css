@@ -4,10 +4,7 @@ body{
 .form{
     height: 900px;
     border: 4px solid black;
-    width: 93%;
-    
-    
-
+    width: 93%;   
     margin-left: 3%;
     margin-top: 2%;
     margin-bottom: 5%;
@@ -21,9 +18,10 @@ body{
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 100px;
+    width: 150px;
     background-color: rgb(121,105, 92);
     cursor:pointer;
+    margin-left: 10%;
 }
 .relatorio{
     min-height: 350px; /* altura mínima de 120 pixels */
@@ -36,11 +34,23 @@ body{
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 100px;
+    width: 150px;
     background-color: rgb(139, 124, 111);
 }
 .alinha{
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content:space-around;
+}
+.num{
+    display: flex;
+    flex-direction: column;
+
+}
+h1,h2{
+    text-align: center;
+}
+.desconto{
+    width: 100px;
+    height: 30px;
 }

@@ -11,7 +11,8 @@
       <h1>Day Care</h1>
       <form action='{% url "reservaday" %}' method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form_reserva.as_p }}
+          <br>
         <div class="alinha">
           <input class="butao" type="submit" value="Salvar">
           <a href="{% url 'ficha:ficha' %}">Novo Pet</a>

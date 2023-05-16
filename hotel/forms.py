@@ -2,10 +2,6 @@ from django import forms
 from .models import ReservaDay, Reserva, ServicosAdicionais
 
 class Reservaform(forms.ModelForm):
-    servicos_adicionais = forms.ModelMultipleChoiceField(
-        queryset=ServicosAdicionais.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
     class Meta:
         model = Reserva
         fields = ['pet','data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos', 'servicos_adicionais']
@@ -15,7 +11,6 @@ class Reservaform(forms.ModelForm):
             #'servicos_adicionais': forms.CheckboxSelectMultiple()
             
         }
-        quantidade_servicos_adicionais = forms.IntegerField(label='Quantidade de serviços adicionais', required=False)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['servicos_adicionais'].queryset = ServicosAdicionais.objects.all()
@@ -30,18 +25,24 @@ class Reservaform(forms.ModelForm):
 class ReservaDayForm(forms.ModelForm):
     class Meta:
         model = ReservaDay
-        fields = ['data_entrada','data_saida','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos']
+        fields = ['pet','data','hora_entrada','horario_alimentacao', 'horario_personalizado','instrucoes_medicamentos', 'autorizacao_para_cuidados_medicos', 'servicos_adicionais']
         widgets = {
             'usuario': forms.HiddenInput(),
+            'num_reserva': forms.HiddenInput(),
+            #'servicos_adicionais': forms.CheckboxSelectMultiple()
+            'pago':forms.HiddenInput(),
+            
         }
-    def save(self, commit=True, usuario=None):
-        reserva1 = super().save(commit=False)
-        if usuario:
-            reserva1.usuario = usuario
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['servicos_adicionais'].queryset = ServicosAdicionais.objects.all()
+        
+    def save(self, commit=True):
+        reserva = super().save(commit=False)
         if commit:
-            reserva1.save()
-        return reserva1
-
+            reserva.save()
+        self.save_m2m()
+        return reserva
 
 
 

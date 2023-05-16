@@ -10,6 +10,7 @@ urlpatterns = [
         path('novareserva/', nova_reserva, name='reserva'), 
         path('novareservaday/', views.reservaday, name='reservaday'),
         path('lista_reservas/', views.reserva_list, name='lista_reserva'),
+        path('lista_reservasday/', views.reservaday_list, name='lista_reservaday'),
         path('procurar_reserva/', views.proc_reserva, name='proc_reserva'),
         path('outra_view/', include('caixa.urls', namespace='parametro')),
     ]
