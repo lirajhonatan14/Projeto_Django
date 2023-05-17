@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style_lista_reserva.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_proc_reserva.css' %}">
     <title>Reserva Day Care</title>
   </head>
   <body>
@@ -14,6 +14,16 @@
             <th>Nome do Animal</th>
             <th>Data de Entrada</th>
             <th>Hora de Entrada</th>
+            <th>Data de Saída</th>
+            <th>Usuário</th>
+            <th>Comida</th>
+            <th>Horário Pernsonalizado</th>
+            <th>Autoriozação para cuidados</th>
+
+
+            
+
+
           </tr>
         </thead>
         <br>
@@ -24,7 +34,7 @@
             <td class='nome'>{{ reserva.pet.nome}}</td>
             <td class='data'>{{ reserva.data_entrada |date:"d/m/Y"}}</td>
             <td class='entrada'>{{ reserva.hora_entrada }}</td>
-            <td class='entrada'>{{ reserva.data_saida }}</td>
+            <td class='entrada'>{{ reserva.data_saida  |date:"d/m/Y"}}</td>
             <td class='entrada'>{{ reserva.usuario }}</td>
             <td class='entrada'>{{ reserva.horario_alimentacao }}</td>
             <td class='entrada'>{{ reserva.horario_personalizado }}</td>

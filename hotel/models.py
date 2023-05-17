@@ -18,7 +18,7 @@ class Reserva(models.Model):
     instrucoes_medicamentos = models.CharField(max_length=100, blank=True, null=True)
     ACEITAR_CHOICES = (('Sim', 'Duas vezes por dia'),('3x_dia', 'Três vezes por dia'),('personalizado', 'Horário personalizado'),)
     autorizacao_para_cuidados_medicos = models.BooleanField(default=False, choices=[(False, 'Não'), (True, 'Sim')])
-    servicos_adicionais = models.ForeignKey('hotel.ServicosAdicionais', blank=True, on_delete=models.CASCADE)
+    servicos_adicionais = models.ForeignKey('hotel.ServicosAdicionais', blank=True,null=True, on_delete=models.CASCADE)
     pago = models.BooleanField(default=False, null=True, choices=[(False, 'Não'), (True, 'Sim')])
     
     def clean(self):
@@ -71,6 +71,9 @@ class ServicosAdicionais(models.Model):
     class Meta:
             db_table = 'Servicos_adicionais'
             
+    def __str__(self):
+        return self.nome_servico      
+     
 class ReservaServicoAdicional(models.Model):
     reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
     servico_adicional = models.ForeignKey(ServicosAdicionais, on_delete=models.CASCADE)
@@ -79,5 +82,6 @@ class ReservaServicoAdicional(models.Model):
             db_table = 'Reserva_Servicos_adicionais'
 
  
-            
+    def __str__(self):
+        return self.reserva
         

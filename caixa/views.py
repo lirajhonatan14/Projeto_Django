@@ -12,7 +12,7 @@ from django.utils import timezone
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 import io
-
+from ficha.models import FichaDog
 
 @login_required(login_url="/auth/login/")
 def caixa_hotel(request, num_reserva):
@@ -258,3 +258,16 @@ def calcular_total(num_reserva, ):
     total = duracao * taxa
     return total
 
+def ficha_reserva(request):
+    if request.method == 'POST':
+        nome_pet = request.POST.get('pet')
+        try:
+            reserva = Reserva.objects.get(pet__nome=nome_pet)
+            return render(request, 'ficha_reserva.html', {'reserva': reserva})
+        except Reserva.DoesNotExist:
+            return render(request, 'reserva_nao_encontrada.html')
+    return render(request, 'proc_reserva.html')
+
+def exibir_reserva(request, num_reserva):
+    reserva = get_object_or_404(Reserva, num_reserva=num_reserva)
+    return render(request, 'ficha_reserva.html', {'pet': reserva})

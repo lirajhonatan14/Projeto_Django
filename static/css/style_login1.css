@@ -13,7 +13,7 @@ h1{
     align-items: center;
     margin-left: 29%;
     margin-top: 10%;
-    background-color: aqua;
+    background-color: rgb(231, 141, 130);
     border-radius: 5%;
     flex-direction: column;
 }
@@ -22,34 +22,29 @@ h1{
 }
 
 .caixa{
-    width: 41%;
-    height: 15%;
-}
-.caixa1{
-    width: 60%;
-    height: 15%;
+    width: 63%;
+    height: 19%;
 }
 .butao{
     display: flex;
     justify-content: center;
     height: 40px;
-    width: 120px;
+    width: 100px;
     margin-left: 35%;
     margin-top: 5%;
     border-radius: 10%;
-    background-color: rgba(255, 255, 0, 0.548);
+    background-color: rgb(139, 124, 111);
     font-size: large;
-
 }
 .butao:hover{
     display: flex;
     justify-content: center;
     height: 40px;
-    width: 120px;
+    width: 100px;
     margin-left: 35%;
     margin-top: 5%;
     border-radius: 10%;
-    background-color: yellow;
+    background-color: rgb(168, 155, 143);
     font-size: large;
-    
+    cursor: pointer;
 }

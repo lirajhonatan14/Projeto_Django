@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style_listapet.css' %}">
-    <title>Reserva Day Care</title>
+    <title>Cães Cadastrados</title>
   </head>
   <body>
     <table class="form">
         <thead class="legenda">
-          <tr class="tr">
+          <t  r class="tr">
             <th>Nome do Animal</th>
             <th>Raça</th>
             <th>Nome do Tutor</th>
@@ -17,13 +17,15 @@
         </thead>
         <br>
         <h1 class='title'>Cães cadastrados</h1>
-        
-            {% for cachorro in cachorros %}
-            <td class="num">{{ cachorro.nome }} 
-            <td >{{ cachorro.raca }} 
-            <td>{{ cachorro.nome_tutor}}
-            {% endfor %}
-        
+            <tr>
+              {% for cachorro in cachorros %}
+              <tr>
+              <td class="num">{{ cachorro.nome }} 
+              <td >{{ cachorro.raca }} 
+              <td>{{ cachorro.nome_tutor}}
+              </tr>
+              {% endfor %}
+            
     </table>
   </body>
 </html>
