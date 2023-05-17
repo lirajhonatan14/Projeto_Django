@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style_home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_home3 .css' %}">
     <title>Página Inicial</title>
   </head>
   <body>
@@ -13,20 +13,20 @@
       <img class="logo" src="{% static 'img/logo.jpeg' %}">
 
       <h1>Página Inicial</h1>
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'cadastro' %}">Cadastro</a>
-      <a href="{% url 'ficha:ficha' %}">Cadastrar Animal</a>
-      <a href="{% url 'ficha:lista' %}">Cães cadastrados</a>
-      <a href="{% url 'reserva' %}">Nova Reserva Hotel</a>
-      <a href="{% url 'reservaday' %}">Nova Reserva Day Care</a>
-      <a href="{% url 'lista_reserva' %}">Reservas do Hotel em Andamento</a>
-      <a href="{% url 'lista_reservaday' %}">Reservas Day Care em Andamento</a>
-      <a href="{% url 'proc_reserva' %}">Historico de Reservas</a>
-      <a href="#">Historico de Reservas</a>
-      <a href="{% url 'logout' %}">Sair</a>
+      <ul>
+        <li><a href="{% url 'login' %}">Login</a><br>
+        <li><a href="{% url 'cadastro' %}">Cadastro</a>
+        <li><a href="{% url 'ficha:ficha' %}">Cadastrar Animal</a>
+        <li><a href="{% url 'ficha:lista' %}">Cães cadastrados</a>
+        <li><a href="{% url 'reserva' %}">Nova Reserva Hotel</a>
+        <li><a href="{% url 'reservaday' %}">Nova Reserva Day Care</a>
+        <li><a href="{% url 'lista_reserva' %}">Reservas do Hotel em Andamento</a>
+        <li><a href="{% url 'lista_reservaday' %}">Reservas Day Care em Andamento</a>
+        <li><a href="{% url 'proc_reserva' %}">Historico de Reservas</a>
+        <li><a href="{% url 'logout' %}">Sair</a>
+      </ul>
 
     </div>
-    
-
+      <img class='tabela' src="{% static 'img/tabela.jpeg' %}">
   </body>
 </html>
